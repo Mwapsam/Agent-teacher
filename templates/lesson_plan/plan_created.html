@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block content %}
+<div class="container py-5">
+  <!-- Header Section -->
+  <header class="mb-5">
+    <h1 class="display-5 fw-bold text-primary mb-3" aria-label="Lesson Plan for {{ lesson.date }}">Lesson Plan - {{ lesson.date }}</h1>
+    <hr class="border-primary border-2 opacity-50">
+  </header>
+
+  <!-- Lesson Details Card -->
+  <section class="card shadow-sm mb-5" aria-labelledby="lesson-details">
+    <div class="card-body">
+      <h2 class="h4 fw-semibold text-secondary mb-4" id="lesson-details">Lesson Details</h2>
+      <div class="row gy-4">
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Teacher</p>
+          <p class="fw-medium">{{ lesson.teacher_name }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">School</p>
+          <p class="fw-medium">{{ lesson.school }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Subject</p>
+          <p class="fw-medium">{{ lesson.subject }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Grade</p>
+          <p class="fw-medium">{{ lesson.grade }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Time</p>
+          <p class="fw-medium">{{ lesson.time }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Duration</p>
+          <p class="fw-medium">{{ lesson.duration }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Number of Pupils</p>
+          <p class="fw-medium">{{ lesson.num_pupils }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Topic</p>
+          <p class="fw-medium">{{ lesson.topic }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Sub-topic</p>
+          <p class="fw-medium">{{ lesson.sub_topic }}</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <p class="mb-1 text-muted small">Gender</p>
+          <p class="fw-medium">{{ lesson.gender }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lesson Sections -->
+  <section aria-labelledby="lesson-content">
+    <h2 class="h4 fw-semibold text-secondary mb-4" id="lesson-content">Lesson Content</h2>
+    {% for section in sections %}
+      <article class="card mb-4 shadow-sm" aria-labelledby="{{ section }}-heading">
+        <div class="card-body">
+          <h3 class="h5 fw-semibold text-secondary" id="{{ section }}-heading">{{ section|capfirst }}</h3>
+          <div class="card-text">{{ lesson|attr:section|markdownify|safe }}</div>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+
+  <!-- Action Buttons -->
+  <div class="d-flex justify-content-end mt-5">
+    <a href="{% url 'create_lesson_plan' %}" class="btn btn-outline-primary btn-lg" role="button" aria-label="Create another lesson plan">
+      <i class="bi bi-arrow-left me-2"></i>Create Another Lesson Plan
+    </a>
+  </div>
+</div>
+
+<!-- Print-Friendly Styles -->
+<style>
+  @media print {
+    .container {
+      width: 100%;
+      padding: 0;
+    }
+    .card {
+      box-shadow: none;
+      border: none;
+    }
+    .btn {
+      display: none;
+    }
+    h1, h2, h3 {
+      color: #000 !important;
+    }
+    .text-muted {
+      color: #333 !important;
+    }
+    hr {
+      border-color: #000;
+    }
+  }
+</style>
+{% endblock %}

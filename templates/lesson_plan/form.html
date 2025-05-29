@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <h2 class="mb-4">Generate Lesson Plan</h2>
+  <form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="teacher_name" class="form-label">Teacher Name:</label>
+        <input type="text" class="form-control" id="teacher_name" name="teacher_name" required>
+        <div class="invalid-feedback">Please enter the teacher's name.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="date" class="form-label">Date:</label>
+        <input type="date" class="form-control" id="date" name="date" required>
+        <div class="invalid-feedback">Please select a date.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="school" class="form-label">School:</label>
+        <input type="text" class="form-control" id="school" name="school" required>
+        <div class="invalid-feedback">Please enter the school name.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="time" class="form-label">Time:</label>
+        <input type="time" class="form-control" id="time" name="time" required>
+        <div class="invalid-feedback">Please select a time.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="grade" class="form-label">Grade:</label>
+        <input type="text" class="form-control" id="grade" name="grade" required>
+        <div class="invalid-feedback">Please enter the grade level.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="duration" class="form-label">Duration:</label>
+        <input type="text" class="form-control" id="duration" name="duration" placeholder="e.g., 45 minutes" required>
+        <div class="invalid-feedback">Please specify the duration.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="subject" class="form-label">Subject:</label>
+        <input type="text" class="form-control" id="subject" name="subject" required>
+        <div class="invalid-feedback">Please enter the subject.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="num_pupils" class="form-label">Number of Pupils:</label>
+        <input type="number" class="form-control" id="num_pupils" name="num_pupils" required>
+        <div class="invalid-feedback">Please enter number of pupils.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="topic" class="form-label">Topic:</label>
+        <input type="text" class="form-control" id="topic" name="topic" required>
+        <div class="invalid-feedback">Please enter the topic.</div>
+      </div>
+      <div class="col-md-6">
+        <label for="sub_topic" class="form-label">Sub-topic:</label>
+        <input type="text" class="form-control" id="sub_topic" name="sub_topic" required>
+        <div class="invalid-feedback">Please enter the sub-topic.</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="gender" class="form-label">Gender (of class):</label>
+      <select class="form-select" id="gender" name="gender" required>
+        <option value="">Choose...</option>
+        <option value="Mixed">Mixed</option>
+        <option value="Girls">Girls</option>
+        <option value="Boys">Boys</option>
+      </select>
+      <div class="invalid-feedback">Please select the gender.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Generate Lesson Plan</button>
+  </form>
+</div>
+
+<script>
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>
+
+{% endblock %}
